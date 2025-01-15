@@ -16,6 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - uses: actions/checkout@v3
+      with:
+        repository: myhdl/myhdl
+        path: myhdl
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -24,6 +29,11 @@ jobs:
     - name: Install Icarus Verilog
       run: |
         sudo apt install -y --no-install-recommends iverilog
+
+    - name: Setup myhdl
+      run : |
+        cmake -C myhdl/cosimulation/icarus
+        cp myhdl/cosimulation/icarus/*.vpi .
 
     - name: Install Python dependencies
       run: |
