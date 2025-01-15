@@ -32,7 +32,7 @@ jobs:
 
     - name: Setup myhdl
       run : |
-        cmake -C myhdl/cosimulation/icarus
+        make -C myhdl/cosimulation/icarus
         cp myhdl/cosimulation/icarus/*.vpi .
 
     - name: Install Python dependencies
