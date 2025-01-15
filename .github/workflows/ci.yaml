@@ -41,4 +41,4 @@ jobs:
         pip install tox tox-gh-actions
 
     - name: Test with tox
-      run: tox -- -n auto --verbose --splits 10 --group ${{ matrix.group }} --splitting-algorithm least_duration
+      run: tox --verbose --splits 10 --group ${{ matrix.group }} --splitting-algorithm least_duration
