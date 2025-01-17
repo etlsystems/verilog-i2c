@@ -42,4 +42,6 @@ jobs:
 
     - name: Test with tox
       #run: tox -- --verbose --splits 10 --group ${{ matrix.group }} --splitting-algorithm least_duration
-      run: cd tb IVERILOG_VPI_MODULE_PATH=../myhdl/cosimulation/icarus/ pytest
+      run: |
+        cd tb
+        IVERILOG_VPI_MODULE_PATH=../myhdl/cosimulation/icarus/ pytest
