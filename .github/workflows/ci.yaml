@@ -42,7 +42,7 @@ jobs:
         pip install pytest
         pip install myhdl
 
-    - name: Test with tox
+    - name: Test with pytest   
       #run: tox -- --verbose --splits 10 --group ${{ matrix.group }} --splitting-algorithm least_duration
       run: |
         cd tb
