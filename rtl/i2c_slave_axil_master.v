@@ -196,17 +196,17 @@ I/O pin.  This would prevent devices from stretching the clock period.
 */
 
 // for interfaces that are more than one word wide, disable address lines
-parameter VALID_ADDR_WIDTH = ADDR_WIDTH - $clog2(STRB_WIDTH);
+localparam VALID_ADDR_WIDTH = ADDR_WIDTH - $clog2(STRB_WIDTH);
 // width of data port in words
-parameter WORD_WIDTH = STRB_WIDTH;
+localparam WORD_WIDTH = STRB_WIDTH;
 // size of words
-parameter WORD_SIZE = DATA_WIDTH/WORD_WIDTH;
+localparam WORD_SIZE = DATA_WIDTH/WORD_WIDTH;
 
-parameter WORD_PART_ADDR_WIDTH = $clog2(WORD_SIZE/8);
+localparam WORD_PART_ADDR_WIDTH = $clog2(WORD_SIZE/8);
 
-parameter ADDR_WIDTH_ADJ = ADDR_WIDTH+WORD_PART_ADDR_WIDTH;
+localparam ADDR_WIDTH_ADJ = ADDR_WIDTH+WORD_PART_ADDR_WIDTH;
 
-parameter ADDR_WORD_WIDTH = (ADDR_WIDTH_ADJ+7)/8;
+localparam ADDR_WORD_WIDTH = (ADDR_WIDTH_ADJ+7)/8;
 
 // bus width assertions
 initial begin
