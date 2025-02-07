@@ -33,8 +33,7 @@ module i2c_slave_axil_master #
 (
     parameter FILTER_LEN = 4,
     parameter DATA_WIDTH = 32,  // width of data bus in bits
-    parameter ADDR_WIDTH = 16,  // width of address bus in bits
-    parameter STRB_WIDTH = (DATA_WIDTH/8)
+    parameter ADDR_WIDTH = 16
 )
 (
     input wire                    clk,
@@ -58,7 +57,7 @@ module i2c_slave_axil_master #
     output wire                   m_axil_awvalid,
     input  wire                   m_axil_awready,
     output wire [DATA_WIDTH-1:0]  m_axil_wdata,
-    output wire [STRB_WIDTH-1:0]  m_axil_wstrb,
+    output wire [(DATA_WIDTH/8)-1:0]  m_axil_wstrb,
     output wire                   m_axil_wvalid,
     input  wire                   m_axil_wready,
     input  wire [1:0]             m_axil_bresp,
@@ -196,6 +195,8 @@ I/O pin.  This would prevent devices from stretching the clock period.
 */
 
 // for interfaces that are more than one word wide, disable address lines
+localparam STRB_WIDTH = DATA_WIDTH / 8;
+    
 localparam VALID_ADDR_WIDTH = ADDR_WIDTH - $clog2(STRB_WIDTH);
 // width of data port in words
 localparam WORD_WIDTH = STRB_WIDTH;
