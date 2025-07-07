@@ -74,7 +74,9 @@ module i2c_slave #(
      */
     input  wire        enable,
     input  wire [6:0]  device_address,
-    input  wire [6:0]  device_address_mask
+    input  wire [6:0]  device_address_mask,
+
+    output wire [127:0] debug_i2c_slave
 );
 /*
 
@@ -212,6 +214,7 @@ reg busy_reg = 1'b0;
 reg bus_active_reg = 1'b0;
 reg bus_addressed_reg = 1'b0, bus_addressed_next;
 
+assign debug_i2c_slave = {rst,release_bus,s_axis_data_tdata,s_axis_data_tvalid,s_axis_data_tready,s_axis_data_tlast,m_axis_data_tdata,m_axis_data_tvalid,m_axis_data_tready,m_axis_data_tlast,scl_i,scl_o,scl_t,sda_i,sda_o,sda_t,busy,bus_address,bus_addressed,bus_active,enable,device_address,device_address_mask,state_reg,addr_reg,addr_next,data_reg,data_next,data_valid_reg,data_valid_next,data_out_reg_valid_reg,data_out_reg_valid_next,last_reg,last_next,mode_read_reg,mode_read_next,bit_count_reg,bit_count_next,s_axis_data_tready_next,m_axis_data_tdata_next,m_axis_data_tvalid_next,m_axis_data_tlast_next,s_axis_data_tready_reg,m_axis_data_tdata_reg,m_axis_data_tvalid_reg,m_axis_data_tlast_reg,scl_i_filter,sda_i_filter,scl_i_reg,sda_i_reg,scl_o_reg,sda_o_reg,scl_o_next,sda_o_next,last_scl_i_reg,last_sda_i_reg,busy_reg,bus_active_reg,bus_addressed_reg,bus_addressed_next};
 assign bus_address = addr_reg;
 
 assign s_axis_data_tready = s_axis_data_tready_reg;
