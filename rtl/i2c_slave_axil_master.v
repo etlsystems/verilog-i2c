@@ -263,8 +263,8 @@ wire [7:0] data_out;
 wire data_out_valid;
 wire data_out_last;
 reg data_out_ready_reg = 1'b0, data_out_ready_next;
-
-assign debug_i2c = {state_next,state_reg,count_reg,last_cycle_reg,addr_reg,addr_next,data_next,data_reg,m_axil_awvalid_reg,m_axil_wstrb_reg,m_axil_wvalid_reg,m_axil_bready_reg,m_axil_arvalid_reg,m_axil_rready_reg,busy_reg,data_in_reg,data_in_valid_reg,data_in_ready,data_out,data_out_valid,data_out_last,data_out_ready_next,data_out_ready_reg,busy,bus_addressed,bus_active,enable,device_address,m_axil_awaddr,m_axil_awprot,m_axil_awvalid,m_axil_awready,m_axil_wdata,m_axil_wstrb,m_axil_wvalid,m_axil_wready,m_axil_bresp,m_axil_bvalid,m_axil_bready,m_axil_araddr,m_axil_arprot,m_axil_arvalid,m_axil_arready,m_axil_rdata,m_axil_rresp,m_axil_rvalid,m_axil_rready,rst,i2c_sda_t,i2c_sda_o,i2c_sda_i,i2c_scl_t,i2c_scl_o,i2c_scl_i};
+wire[127:0] debug_i2c_slave;
+assign debug_i2c = {debug_i2c_slave,state_next,state_reg,count_reg,last_cycle_reg,addr_reg,addr_next,data_next,data_reg,m_axil_awvalid_reg,m_axil_wstrb_reg,m_axil_wvalid_reg,m_axil_bready_reg,m_axil_arvalid_reg,m_axil_rready_reg,busy_reg,data_in_reg,data_in_valid_reg,data_in_ready,data_out,data_out_valid,data_out_last,data_out_ready_next,data_out_ready_reg,busy,bus_addressed,bus_active,enable,device_address,m_axil_awaddr,m_axil_awprot,m_axil_awvalid,m_axil_awready,m_axil_wdata,m_axil_wstrb,m_axil_wvalid,m_axil_wready,m_axil_bresp,m_axil_bvalid,m_axil_bready,m_axil_araddr,m_axil_arprot,m_axil_arvalid,m_axil_arready,m_axil_rdata,m_axil_rresp,m_axil_rvalid,m_axil_rready,rst,i2c_sda_t,i2c_sda_o,i2c_sda_i,i2c_scl_t,i2c_scl_o,i2c_scl_i};
 
 assign m_axil_awaddr = {addr_reg[ADDR_WIDTH_ADJ-1:ADDR_WIDTH_ADJ-VALID_ADDR_WIDTH], {ADDR_WIDTH-VALID_ADDR_WIDTH{1'b0}}};
 assign m_axil_awprot = 3'b010;
@@ -509,7 +509,8 @@ i2c_slave_inst (
     // Configuration
     .enable(enable),
     .device_address(device_address),
-    .device_address_mask(7'h7f)
+    .device_address_mask(7'h7f),
+    .debug_i2c_slave(debug_i2c_slave)
 );
 
 endmodule
